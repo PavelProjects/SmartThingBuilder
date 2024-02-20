@@ -11,10 +11,10 @@ void setup() {
   addSensors();
   addActions();
   addConfigEntries();
-
+  $ota_begin
   if (SmartThing.init($init_params)) {
     LOGGER.info("main", "SmartThing successfully initialized");
-  $ota_begin} else {
+  } else {
     LOGGER.error("main", "Failed to init SmartThing!");
   }
   LOGGER.info("main", "Setup finished");

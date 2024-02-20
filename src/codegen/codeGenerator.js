@@ -90,7 +90,7 @@ const buildInitParams = (type, name) => {
 const includeOta = (template, withOta) => {
   if (withOta) {
     return template.replace("$ota_include", "#include <ArduinoOTA.h>\n")
-      .replace("$ota_begin", "  ArduinoOTA.begin();\n  ")
+      .replace("$ota_begin", "ArduinoOTA.begin();\n  ")
       .replace("$ota_handle", "ArduinoOTA.handle();\n  ")
   } else {
     return template.replace("$ota_include", "")
