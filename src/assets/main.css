@@ -1,0 +1,70 @@
+@import './base.css';
+
+#app {
+  font-weight: normal;
+}
+
+a,
+.green {
+  text-decoration: none;
+  color: hsla(160, 100%, 37%, 1);
+  transition: 0.4s;
+  padding: 3px;
+}
+
+input, select {
+  font-size: var(--font-size);
+  background-color: var(--color-background);
+  border: solid 1px var(--color-border);
+  border-radius: 5px;
+  outline: none;
+  color: var(--color-text);
+}
+
+p {
+  font-size: var(--font-size);
+}
+
+@media (hover: hover) {
+  a:hover {
+    background-color: hsla(160, 100%, 37%, 0.2);
+  }
+}
+
+.field-container {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+}
+.field-container p {
+  text-align: center;
+}
+
+.bordered {
+  border: solid 2px var(--color-border);
+  border-radius: 5px;
+}
+
+
+.btn {
+  background-color: hsla(160, 100%, 37%, 0.2);
+  border-color: transparent;
+  border-radius: var(--border-radius);
+  min-width: 90px;
+  min-height: 40px;
+  color: black;
+}
+
+.btn:hover {
+  opacity: 0.5;
+}
+
+header {
+  font-size: 30px;
+  text-align: center;
+  text-decoration: none;
+  color: var(--color-positive);
+}
+
+.required {
+  background-color: rgba(146, 0, 0, 0.489);
+}

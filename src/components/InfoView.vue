@@ -1,0 +1,51 @@
+<script>
+import { useCodeComponentsStore } from '../stores/useCodeComponentsStore'
+import ComponentView from './ComponentView.vue'
+import InputField from './fields/InputField.vue'
+import CheckBoxField from './fields/CheckBoxField.vue'
+
+export default {
+  components: {
+    ComponentView,
+    InputField,
+    CheckBoxField,
+  },
+  data() {
+    const compsStore = useCodeComponentsStore()
+    return {
+      store: compsStore,
+    }
+  }
+}
+</script>
+
+<template>
+  <ComponentView header="Базовая информация" :withAddButton="false">
+    <info-container>
+      <InputField 
+        label="Тип устройства"
+        :modelValue="store.type"
+        @update:modelValue="(v) => store.setType(v)"
+        :required="true"
+      />
+      <InputField 
+        label="Имя устройства"
+        :modelValue="store.name"
+        @update:modelValue="(v) => store.setName(v)"
+      />
+      <CheckBoxField
+        label="ArduinoOTA"
+        :modelValue="store.ota"
+        @update:modelValue="(v) => store.setOta(v)"
+      />
+    </info-container>
+  </ComponentView>
+</template>
+
+<style scoped>
+  info-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+</style>
