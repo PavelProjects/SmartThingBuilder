@@ -20,7 +20,8 @@ void setup() {
   LOGGER.info("main", "Setup finished");
 }
 void loop() {
-  $ota_handle//Your loop logic here
+  $ota_handle
+  //Your loop logic here
   delay(500);
 }
 
@@ -59,6 +60,17 @@ const configEntryTemplate = `  SmartThing.addConfigEntry("$name", "$description"
 
 const pinDefineTemplate = `#define $pin_name $pin`
 
+const otaBeginTemplate = `
+  if (SmartThing.wifiConnected()) {
+    ArduinoOTA.begin();
+  }
+`
+const otaHandleTemplate = `
+  if (SmartThing.wifiConnected()) {
+    ArduinoOTA.handle();
+  }
+`
+
 export { 
   mainTemplate,
   actionTemplate,
@@ -68,4 +80,6 @@ export {
   stateTemplate,
   configEntryTemplate,
   pinDefineTemplate,
+  otaBeginTemplate,
+  otaHandleTemplate,
 }

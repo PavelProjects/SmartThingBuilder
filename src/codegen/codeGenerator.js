@@ -1,4 +1,4 @@
-import { mainTemplate, actionTemplate, stateTemplate, digitalSensorTemplate, analogSensorTemplate, customSensorsTemplate, configEntryTemplate, pinDefineTemplate } from "./codeTemplates";
+import { mainTemplate, actionTemplate, stateTemplate, digitalSensorTemplate, analogSensorTemplate, customSensorsTemplate, configEntryTemplate, pinDefineTemplate, otaBeginTemplate, otaHandleTemplate } from "./codeTemplates";
 
 const generateCode = ({
   type = "", name = "",
@@ -90,8 +90,8 @@ const buildInitParams = (type, name) => {
 const includeOta = (template, withOta) => {
   if (withOta) {
     return template.replace("$ota_include", "#include <ArduinoOTA.h>\n")
-      .replace("$ota_begin", "ArduinoOTA.begin();\n  ")
-      .replace("$ota_handle", "ArduinoOTA.handle();\n  ")
+      .replace("$ota_begin", otaBeginTemplate)
+      .replace("$ota_handle", otaHandleTemplate)
   } else {
     return template.replace("$ota_include", "")
       .replace("$ota_begin", "")
