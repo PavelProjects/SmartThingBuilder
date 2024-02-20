@@ -18,7 +18,7 @@ export default {
   <div class="field-container">
     <p v-if="label">{{ label }}</p>
     <input
-      :value="modelValue"
+      :checked="modelValue"
       @input="$emit('update:modelValue', $event.target.checked)"
       type="checkbox"
       :class="{ required: notValid }"
