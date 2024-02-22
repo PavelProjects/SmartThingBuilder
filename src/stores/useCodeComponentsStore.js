@@ -32,7 +32,11 @@ const useCodeComponentsStore = defineStore({
       this.type = value
     },
     addAction() {
-      addIfPossible(this.actions, { name: undefined, description: undefined })
+      addIfPossible(this.actions, { 
+        name: undefined,
+        description: undefined,
+        logic: undefined
+      })
     },
     removeAction(index) {
       this.actions.splice(index, 1)
@@ -52,7 +56,7 @@ const useCodeComponentsStore = defineStore({
     addConfig() {
       addIfPossible(
         this.configs,
-        { name: undefined, description: undefined, type: undefined }
+        { name: undefined, description: undefined, type: "string" }
       )
     },
     removeConfig(index) {

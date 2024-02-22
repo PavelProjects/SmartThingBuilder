@@ -15,7 +15,11 @@ import { generateCode } from './codegen/codeGenerator';
     },
     computed: {
       codeTemplate() {
-        return generateCode(this.store)
+        try {
+          return generateCode(this.store)
+        } catch (error) {
+          return error
+        }
       }
     }
   }

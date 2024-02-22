@@ -1,20 +1,16 @@
-import { mainTemplate, actionTemplate, stateTemplate, digitalSensorTemplate, analogSensorTemplate, customSensorsTemplate, configEntryTemplate, pinDefineTemplate, otaBeginTemplate, otaHandleTemplate } from "./codeTemplates";
+import { actionTemplate, analogSensorTemplate, configEntryTemplate, customSensorsTemplate, digitalSensorTemplate, mainTemplate, otaBeginTemplate, otaHandleTemplate, pinDefineTemplate, stateTemplate } from "./codeTemplates"
 
-const generateCode = ({
-  type = "", name = "",
-  states = [],
-  sensors = [],
-  actions = [],
-  configs = [],
-  ota = true,
-}) => {
-  const statesBlock = states
+const actionsBuilder = ({ actions }) => {
+  return actions
     .filter(({ name }) => !!name)
-    .map(({ name }) => stateTemplate.replace("$name", toSnakeCase(name)))
-    .join("")
+    .map(({ name, description }) => actionTemplate
+      .replace("$name", toSnakeCase(name))
+      .replace("$description", description || name)
+    )
+}
 
-  const sensorsBlocks = []
-  const pinsBlocks = []
+const sensorsBuilder = ({ sensors, pins }) => {
+  const blocks = []
   sensors.filter(({ name }) => !!name)
     .forEach(({ name, pin, type }) => {
       const pinName = toSnakeCase(name).toUpperCase() + "_PIN"
@@ -30,45 +26,96 @@ const generateCode = ({
         default:
           template = customSensorsTemplate
       }
-      sensorsBlocks.push(
+      blocks.push(
         template
           .replace("$name", toSnakeCase(name))
           .replace("$pin_name", pinName)
       )
-      if (pin) {
-        pinsBlocks.push(
-          pinDefineTemplate
-            .replace("$pin_name", pinName)
-            .replace("$pin", pin)
-        )
+      if (pin || pin === 0) {
+        pins[pin] = pinName
       }
     })
+  return blocks
+}
 
-  const actionsBlock = actions
+const statesBuilder = ({ states }) => {
+  return states
     .filter(({ name }) => !!name)
-    .map(({ name, description }) => actionTemplate
-      .replace("$name", toSnakeCase(name))
-      .replace("$description", description || name)
-    ).join("")
-  
-  const configsBlock = configs
+    .map(({ name }) => stateTemplate.replace("$name", toSnakeCase(name)))
+}
+
+const configsBuilder = ({ configs }) => {
+  return configs
     .filter(({ name }) => !!name)
     .map(({ name, description, type }) => configEntryTemplate
       .replace("$name", toSnakeCase(name))
       .replace("$description", description || name)
       .replace("$type", type || "string")
-    ).join("")
-  
+    )
+}
+
+const pinsBuilder = ({ pins }) => {
+  return Object.entries(pins).map(([pin, name]) => 
+    pinDefineTemplate
+      .replace("$pin_name", name)
+      .replace("$pin", pin)
+  )
+}
+
+const otaBuilder = ({ ota }) => {
+  if (ota) {
+    return {
+      "include": "#include <ArduinoOTA.h>\n",
+      "begin": otaBeginTemplate,
+      "handle": otaHandleTemplate,
+    }
+  } else {
+    return {
+      "include": "",
+      "begin": "",
+      "handle": "",
+    }
+  }
+}
+
+const initParamsBuilder = ({ type, name }) => {
+  let v = `"${toSnakeCase(type)}"`;
+  if (!name) {
+    return v;
+  }
+  return `${v}, "${toSnakeCase(name)}"`
+}
+
+const builders = {
+  "actions": actionsBuilder,
+  "sensors": sensorsBuilder,
+  "states": statesBuilder,
+  "configs": configsBuilder,
+  "pins": pinsBuilder,
+  "init_params": initParamsBuilder,
+  "ota": otaBuilder,
+}
+
+const generateCode = (store) => {
+  const context = {
+    pins: {},
+    ...store
+  }
   let template = mainTemplate
-    .replace("$pins_define", pinsBlocks.length !== 0 ? '\n' + pinsBlocks.join("\n") + '\n' : '')
-    .replace("$init_params", buildInitParams(type, name))
-    .replace("$states", statesBlock)
-    .replace("$sensors", sensorsBlocks.join(""))
-    .replace("$actions", actionsBlock)
-    .replace("$config_entries", configsBlock)
-
-    template = includeOta(template, ota)
-
+  Object.entries(builders).forEach(([name, builder]) => {
+    const result = builder(context)
+    if (Array.isArray(result)) {
+      template = template.replace("$" + name, result.length === 0 ? '' : '\n' + result.join("\n") + '\n')
+    } else if (result instanceof Object) {
+      Object.entries(result).forEach(([key, value]) => 
+        template = template.replace(`\$${name}_${key}`, value)
+      )
+    } else if (typeof(result) === 'string'){
+      template = template.replace("$" + name, result)
+    } else {
+      template = template.replace("$" + name, '')
+    }
+  })
   return template
 }
 
@@ -77,26 +124,6 @@ const toSnakeCase = (value) => {
     return "";
   }
   return value.trim().toLowerCase().replaceAll(" ", "_")
-}
-
-const buildInitParams = (type, name) => {
-  let v = `"${toSnakeCase(type)}"`;
-  if (!name) {
-    return v;
-  }
-  return `${v}, "${toSnakeCase(name)}"`
-}
-
-const includeOta = (template, withOta) => {
-  if (withOta) {
-    return template.replace("$ota_include", "#include <ArduinoOTA.h>\n")
-      .replace("$ota_begin", otaBeginTemplate)
-      .replace("$ota_handle", otaHandleTemplate)
-  } else {
-    return template.replace("$ota_include", "")
-      .replace("$ota_begin", "")
-      .replace("$ota_handle", "")
-  }
 }
 
 export { generateCode }
