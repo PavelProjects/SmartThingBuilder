@@ -9,7 +9,7 @@ const canAdd = (list) => {
 
 const addIfPossible = (list, item) => {
   if (canAdd(list)) {
-    list.push(item)
+    list.unshift(item)
   }
 }
 
@@ -34,9 +34,24 @@ const useCodeComponentsStore = defineStore({
     addAction() {
       addIfPossible(this.actions, { 
         name: undefined,
-        description: undefined,
-        logic: undefined
+        caption: undefined,
       })
+    },
+    addActionLogic(index) {
+      if (!this.actions[index]) {
+        return
+      }
+      this.actions[index].logic = {
+        type: "digital",
+        pin: 0,
+        value: 'HIGH',
+      }
+    },
+    removeActionLogic(index) {
+      if (!this.actions[index]) {
+        return
+      }
+      delete this.actions[index].logic
     },
     removeAction(index) {
       this.actions.splice(index, 1)
@@ -56,7 +71,7 @@ const useCodeComponentsStore = defineStore({
     addConfig() {
       addIfPossible(
         this.configs,
-        { name: undefined, description: undefined, type: "string" }
+        { name: undefined, caption: undefined, type: "string" }
       )
     },
     removeConfig(index) {

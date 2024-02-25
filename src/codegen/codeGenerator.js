@@ -1,11 +1,25 @@
-import { actionTemplate, analogSensorTemplate, configEntryTemplate, customSensorsTemplate, digitalSensorTemplate, mainTemplate, otaBeginTemplate, otaHandleTemplate, pinDefineTemplate, stateTemplate } from "./codeTemplates"
+import { actionTemplate, analogSensorTemplate, configEntryTemplate, customSensorsTemplate, digitalSensorTemplate, mainTemplate, otaBeginTemplate, otaHandleTemplate, pinDefineTemplate, stateTemplate, urLogicTemplate } from "./codeTemplates"
 
-const actionsBuilder = ({ actions }) => {
+const actionLogicBuilder = (action, logic, pins) => {
+  if (!logic) {
+    return
+  }
+  const { type, pin, value } = logic
+  if (!['digital', 'analog'].includes(type) || (!pin && pin !== 0) || !value) {
+    return
+  }
+  const pinName = `ACTION_${toSnakeCase(action).toUpperCase()}_PIN`
+  pins[pinName] = pin
+  return `${type}Write(${pinName}, ${value})`
+}
+
+const actionsBuilder = ({ actions, pins }) => {
   return actions
     .filter(({ name }) => !!name)
-    .map(({ name, description }) => actionTemplate
+    .map(({ name, caption, logic }) => actionTemplate
       .replace("$name", toSnakeCase(name))
-      .replace("$description", description || name)
+      .replace("$caption", caption || name)
+      .replace("$logic", actionLogicBuilder(name, logic, pins) ?? urLogicTemplate)
     )
 }
 
@@ -13,7 +27,7 @@ const sensorsBuilder = ({ sensors, pins }) => {
   const blocks = []
   sensors.filter(({ name }) => !!name)
     .forEach(({ name, pin, type }) => {
-      const pinName = toSnakeCase(name).toUpperCase() + "_PIN"
+      const pinName = "SENSOR_" + toSnakeCase(name).toUpperCase() + "_PIN"
 
       let template = "";
       switch(type) {
@@ -32,7 +46,7 @@ const sensorsBuilder = ({ sensors, pins }) => {
           .replace("$pin_name", pinName)
       )
       if (pin || pin === 0) {
-        pins[pin] = pinName
+        pins[pinName] = pin
       }
     })
   return blocks
@@ -47,15 +61,15 @@ const statesBuilder = ({ states }) => {
 const configsBuilder = ({ configs }) => {
   return configs
     .filter(({ name }) => !!name)
-    .map(({ name, description, type }) => configEntryTemplate
+    .map(({ name, caption, type }) => configEntryTemplate
       .replace("$name", toSnakeCase(name))
-      .replace("$description", description || name)
+      .replace("$caption", caption || name)
       .replace("$type", type || "string")
     )
 }
 
 const pinsBuilder = ({ pins }) => {
-  return Object.entries(pins).map(([pin, name]) => 
+  return Object.entries(pins).map(([name, pin]) => 
     pinDefineTemplate
       .replace("$pin_name", name)
       .replace("$pin", pin)

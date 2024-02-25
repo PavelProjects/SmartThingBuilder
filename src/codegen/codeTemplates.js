@@ -1,4 +1,5 @@
 const mainTemplate = `//Auto-generated code
+#include <Arduino.h>
 #include <SmartThing.h>
 $ota_include$pins
 void addStates();
@@ -30,22 +31,24 @@ void addActions() {$actions}
 void addConfigEntries() {$configs}
 `
 
+const urLogicTemplate = '//TODO your logic here'
+
 const stateTemplate = `  SmartThing.addDeviceState("$name", []() {
-    return ""; //TODO your logic here
+    return ""; ${urLogicTemplate}
   });`
 
 const digitalSensorTemplate = `  SmartThing.addDigitalSensor("$name", $pin_name);`;
 const analogSensorTemplate = `  SmartThing.addAnalogSensor("$name", $pin_name);`;
 const customSensorsTemplate = `  SmartThing.addSensor("$name", [](){
-    return 0; //TODO your logic here
+    return 0; ${urLogicTemplate}
   });`
 
-const actionTemplate = `  SmartThing.addActionHandler("$name", "$description", []() {
-    // TODO your logic here
+const actionTemplate = `  SmartThing.addActionHandler("$name", "$caption", []() {
+    $logic
     return ActionResult(true);
   });`
 
-const configEntryTemplate = `  SmartThing.addConfigEntry("$name", "$description", "$type");`
+const configEntryTemplate = `  SmartThing.addConfigEntry("$name", "$caption", "$type");`
 
 const pinDefineTemplate = `#define $pin_name $pin`
 
@@ -70,4 +73,5 @@ export {
   pinDefineTemplate,
   otaBeginTemplate,
   otaHandleTemplate,
+  urLogicTemplate
 }

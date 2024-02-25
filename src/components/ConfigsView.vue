@@ -46,7 +46,7 @@ export default {
         <InputField
           label="Описание"
           placeholder="Введите описание"
-          v-model="config.description"
+          v-model="config.caption"
         />
         <SelectField 
           label="Тип"
