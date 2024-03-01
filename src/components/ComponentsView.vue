@@ -29,7 +29,7 @@ export default {
 </script>
 
 <template>
-  <div>
+  <div class="container">
     <div class="tabs">
       <TabItem
         name="info"
@@ -73,6 +73,10 @@ export default {
 </template>
 
 <style scoped>
+  .container {
+    width: 800px;
+    margin: 0 auto;
+  }
   .tabs {
     display: flex;
     flex-direction: row;
@@ -84,8 +88,6 @@ export default {
   .tab-view {
     padding: 5px;
     max-height: calc(100vh - 56px);
-    width: 800px;
-    margin: 0 auto;
     overflow-y: auto;
     overflow-x: hidden;
   }

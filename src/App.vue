@@ -37,12 +37,15 @@ import { generateCode } from './codegen/codeGenerator';
   main-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    height: 100%;
+    padding: 15px;
   }
   textarea {
-    height: 100vh;
+    height: 95vh;
+    width: 900px;
+    margin: 0 auto;
     font-size: 20px;
     background-color: var(--color-background-mute);
-    color: var(--color-text)
+    color: var(--color-text);
+    resize: none;
   }
 </style>

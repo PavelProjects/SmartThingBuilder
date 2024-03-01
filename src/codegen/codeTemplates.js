@@ -12,12 +12,13 @@ void setup() {
   addSensors();
   addActions();
   addConfigEntries();
-  $ota_begin
+  
   if (SmartThing.init($init_params)) {
     LOGGER.info("main", "SmartThing successfully initialized");
   } else {
     LOGGER.error("main", "Failed to init SmartThing!");
   }
+  $ota_begin
   LOGGER.info("main", "Setup finished");
 }
 void loop() {
@@ -25,9 +26,9 @@ void loop() {
   delay(500);
 }
 
-void addStates() {$states}
-void addSensors() {$sensors}
 void addActions() {$actions}
+void addSensors() {$sensors}
+void addStates() {$states}
 void addConfigEntries() {$configs}
 `
 
