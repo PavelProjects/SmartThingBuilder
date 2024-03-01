@@ -8,18 +8,20 @@ const actionLogicBuilder = (action, logic, pins) => {
   if (!['digital', 'analog'].includes(type) || (!pin && pin !== 0) || !value) {
     return
   }
-  const pinName = `ACTION_${toSnakeCase(action).toUpperCase()}_PIN`
+  const pinName = `ACTION_${action.toUpperCase()}_PIN`
   pins[pinName] = pin
   return `${type}Write(${pinName}, ${value})`
 }
 
 const actionsBuilder = ({ actions, pins }) => {
+  actions.forEach((action) => action.systemName = toSnakeCase(action.name))
+
   return actions
     .filter(({ name }) => !!name)
-    .map(({ name, caption, logic }) => actionTemplate
-      .replace("$name", toSnakeCase(name))
+    .map(({ name, systemName, caption, logic }) => actionTemplate
+      .replace("$name", systemName)
       .replace("$caption", caption || name)
-      .replace("$logic", actionLogicBuilder(name, logic, pins) ?? urLogicTemplate)
+      .replace("$logic", actionLogicBuilder(systemName, logic, pins) ?? urLogicTemplate)
     )
 }
 
@@ -27,7 +29,8 @@ const sensorsBuilder = ({ sensors, pins }) => {
   const blocks = []
   sensors.filter(({ name }) => !!name)
     .forEach(({ name, pin, type }) => {
-      const pinName = "SENSOR_" + toSnakeCase(name).toUpperCase() + "_PIN"
+      const systemName = toSnakeCase(name)
+      const pinName = "SENSOR_" + systemName.toUpperCase() + "_PIN"
 
       let template = "";
       switch(type) {
@@ -42,7 +45,7 @@ const sensorsBuilder = ({ sensors, pins }) => {
       }
       blocks.push(
         template
-          .replace("$name", toSnakeCase(name))
+          .replace("$name", systemName)
           .replace("$pin_name", pinName)
       )
       if (pin || pin === 0) {

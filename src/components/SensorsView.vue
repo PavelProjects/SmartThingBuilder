@@ -38,9 +38,9 @@ export default {
         @remove="removeSensor(index)"
       >
         <InputField
-          label="Имя"
+          label="Системное"
           v-model="sensor.name"
-          placeholder="Введите имя"
+          placeholder="Введите системное имя"
           :required="true"
         />
         <SelectField

@@ -31,8 +31,8 @@ export default {
         @remove="removeState(index)"
       >
         <InputField
-          label="Имя"
-          placeholder="Введите имя"
+          label="Системное имя"
+          placeholder="Введите системное имя"
           v-model="state.name"
           :required="true"
         />

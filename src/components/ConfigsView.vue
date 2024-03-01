@@ -38,14 +38,14 @@ export default {
         @remove="removeConfig(index)"
       >
         <InputField
-          label="Имя"
-          placeholder="Введите имя"
+          label="Системное имя"
+          placeholder="Введите cистемное имя"
           v-model="config.name"
           :required="true"
         />
         <InputField
-          label="Описание"
-          placeholder="Введите описание"
+          label="Название"
+          placeholder="Введите название"
           v-model="config.caption"
         />
         <SelectField 
