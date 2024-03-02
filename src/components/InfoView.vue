@@ -21,7 +21,7 @@ export default {
 
 <template>
   <ComponentView header="Базовая информация" :withAddButton="false">
-    <info-container>
+    <div class="info-container">
       <InputField 
         label="Тип устройства"
         :modelValue="store.type"
@@ -38,12 +38,12 @@ export default {
         :modelValue="store.ota"
         @update:modelValue="(v) => store.setOta(v)"
       />
-    </info-container>
+    </div>
   </ComponentView>
 </template>
 
 <style scoped>
-  info-container {
+  .info-container {
     display: flex;
     flex-direction: column;
     gap: 2px;

@@ -21,6 +21,12 @@ input, select {
   color: var(--color-text);
 }
 
+textarea {
+  font-size: 20px;
+  background-color: var(--color-background-mute);
+  color: var(--color-text);
+}
+
 p, span {
   font-size: var(--font-size);
 }

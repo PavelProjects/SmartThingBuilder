@@ -16,26 +16,26 @@ export default {
 </script>
 
 <template>
-  <component-container class="bordered">
+  <div class="component-container bordered">
     <div class="title">
       <header>{{ header }}</header>
       <button v-if="withAddButton" @click.stop="handleButton" class="btn">
         <h2>Добавить</h2>
       </button>
     </div>
-    <content>
+    <div class="content">
       <slot></slot>
-    </content>
-  </component-container>
+    </div>
+  </div>
 </template>
 
 <style scoped>
-  component-container {
+  .component-container {
     display: flex;
     flex-direction: column;
     padding: 2px;
   }
-  content {
+  .content {
     padding: 2px;
   }
   .title {

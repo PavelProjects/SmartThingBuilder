@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { defineStore } from "pinia";
 
 const canAdd = (list) => {
@@ -13,6 +14,16 @@ const addIfPossible = (list, item) => {
   }
 }
 
+const initState = {
+  type: "test_device",
+  name: "",
+  states: [],
+  sensors: [],
+  actions: [],
+  configs: [],
+  ota: false,
+}
+
 const useCodeComponentsStore = defineStore({
   id: 'code_comp',
   state: () => ({
@@ -24,7 +35,21 @@ const useCodeComponentsStore = defineStore({
     configs: [],
     ota: false,
   }),
+  getters: {
+    haveChanges: ({ type, name, states, sensors, actions, configs, ota }) => {
+      return !_.isEqual(
+        { type, name, states, sensors, actions, configs, ota },
+        initState
+      );
+    }
+  },
   actions: {
+    export() {
+      return JSON.stringify(this.$state, null, 2)
+    },
+    import(json) {
+      this.$state = JSON.parse(json)
+    },
     setName(value) {
       this.name = value
     },

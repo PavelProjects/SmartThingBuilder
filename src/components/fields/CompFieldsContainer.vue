@@ -6,11 +6,6 @@ export default {
     Delete
   },
   emits: ["remove"]
-  /**
-   * TODO
-   * - add list view for fields and remove all v-for divs
-   * - add remove button (confirm dialog)
-   */
 }
 </script>
 
