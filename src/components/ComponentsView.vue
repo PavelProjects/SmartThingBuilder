@@ -65,24 +65,28 @@ export default {
       <TabItem
         name="actions"
         caption="Действия"
+        :count="store.actions.length"
         :currentTab="tab"
         @select="handleTabSelect"
       />
       <TabItem
         name="sensors"
         caption="Сенсоры"
+        :count="store.sensors.length"
         :currentTab="tab"
         @select="handleTabSelect"
       />
       <TabItem
         name="states"
         caption="Состояния"
+        :count="store.states.length"
         :currentTab="tab"
         @select="handleTabSelect"
       />
       <TabItem
         name="configs"
         caption="Конфигурации"
+        :count="store.configs.length"
         :currentTab="tab"
         @select="handleTabSelect"
       />
