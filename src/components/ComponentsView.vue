@@ -153,8 +153,10 @@ export default {
     margin: auto;
   }
   .dialog textarea {
-    width: 800px;
-    height: 400px;
+    min-width: 800px;
+    min-height: 400px;
+    width: 50vw;
+    height: 60vh;
     resize: none;
   }
   .import-dialog {

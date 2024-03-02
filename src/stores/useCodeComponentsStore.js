@@ -5,7 +5,7 @@ const canAdd = (list) => {
   if (list.length === 0) {
     return true
   }
-  return !!list[list.length - 1].name
+  return !list.find(({ name }) => !name)
 }
 
 const addIfPossible = (list, item) => {
@@ -26,15 +26,7 @@ const initState = {
 
 const useCodeComponentsStore = defineStore({
   id: 'code_comp',
-  state: () => ({
-    type: "test_device",
-    name: "",
-    states: [],
-    sensors: [],
-    actions: [],
-    configs: [],
-    ota: false,
-  }),
+  state: () => _.cloneDeep(initState),
   getters: {
     haveChanges: ({ type, name, states, sensors, actions, configs, ota }) => {
       return !_.isEqual(
@@ -45,10 +37,27 @@ const useCodeComponentsStore = defineStore({
   },
   actions: {
     export() {
-      return JSON.stringify(this.$state, null, 2)
+      return JSON.stringify({
+        type: this.type,
+        name: this.name,
+        ota: this.ota,
+        states: this.states.filter(({ name }) => !!name),
+        actions: this.actions.filter(({ name }) => !!name),
+        sensors: this.sensors.filter(({ name, type, pin }) => {
+          if (type === 'custom') {
+            return !!name
+          }
+          return !!name && (pin === 0 || !!pin)
+        }),
+      }, null, 2)
     },
     import(json) {
-      this.$state = JSON.parse(json)
+      const values = JSON.parse(json)
+      this.$state = _.cloneDeep({
+        ...initState,
+        ..._.pick(values, ['type', 'name', 'ota', 'states', 'actions', 'sensors']),
+      })
+      console.log(this.$state)
     },
     setName(value) {
       this.name = value
