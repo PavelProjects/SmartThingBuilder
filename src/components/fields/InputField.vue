@@ -7,13 +7,13 @@ export default {
     modelValue: String,
     required: Boolean,
   },
-  emits: ['update:modelValue'],
+  emits: ["update:modelValue"],
   computed: {
     notValid() {
-      return this.required && !this.modelValue
-    }
-  }
-}
+      return this.required && !this.modelValue;
+    },
+  },
+};
 </script>
 
 <template>

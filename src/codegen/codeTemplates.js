@@ -30,40 +30,40 @@ void addActions() {$actions}
 void addSensors() {$sensors}
 void addStates() {$states}
 void addConfigEntries() {$configs}
-`
+`;
 
-const urLogicTemplate = '//TODO your logic here'
+const urLogicTemplate = "//TODO your logic here";
 
 const stateTemplate = `  SmartThing.addDeviceState("$name", []() {
     return ""; ${urLogicTemplate}
-  });`
+  });`;
 
 const digitalSensorTemplate = `  SmartThing.addDigitalSensor("$name", $pin_name);`;
 const analogSensorTemplate = `  SmartThing.addAnalogSensor("$name", $pin_name);`;
 const customSensorsTemplate = `  SmartThing.addSensor("$name", [](){
     return 0; ${urLogicTemplate}
-  });`
+  });`;
 
 const actionTemplate = `  SmartThing.addActionHandler("$name", "$caption", []() {
     $logic
     return ActionResult(true);
-  });`
+  });`;
 
-const configEntryTemplate = `  SmartThing.addConfigEntry("$name", "$caption", "$type");`
+const configEntryTemplate = `  SmartThing.addConfigEntry("$name", "$caption", "$type");`;
 
-const pinDefineTemplate = `#define $pin_name $pin`
+const pinDefineTemplate = `#define $pin_name $pin`;
 
 const otaBeginTemplate = `
   if (SmartThing.wifiConnected()) {
     ArduinoOTA.begin();
   }
-`
+`;
 const otaHandleTemplate = `if (SmartThing.wifiConnected()) {
     ArduinoOTA.handle();
   }
-  `
+  `;
 
-export { 
+export {
   mainTemplate,
   actionTemplate,
   analogSensorTemplate,
@@ -74,5 +74,5 @@ export {
   pinDefineTemplate,
   otaBeginTemplate,
   otaHandleTemplate,
-  urLogicTemplate
-}
+  urLogicTemplate,
+};

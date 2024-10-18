@@ -4,15 +4,15 @@ export default {
     header: String,
     withAddButton: {
       type: Boolean,
-      default: () => true
+      default: () => true,
     },
   },
   methods: {
     handleButton() {
-      this.$emit("add")
-    }
-  }
-}
+      this.$emit("add");
+    },
+  },
+};
 </script>
 
 <template>
@@ -30,21 +30,21 @@ export default {
 </template>
 
 <style scoped>
-  .component-container {
-    display: flex;
-    flex-direction: column;
-    padding: 2px;
-  }
-  .content {
-    padding: 2px;
-  }
-  .title {
-    position: relative;
-  }
-  .title button {
-    position: absolute;
-    top: 2px;
-    right: 2px;
-    height: calc(100% - 4px);
-  }
+.component-container {
+  display: flex;
+  flex-direction: column;
+  padding: 2px;
+}
+.content {
+  padding: 2px;
+}
+.title {
+  position: relative;
+}
+.title button {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  height: calc(100% - 4px);
+}
 </style>

@@ -1,8 +1,8 @@
 <script>
-import { useCodeComponentsStore } from '../stores/useCodeComponentsStore'
-import ComponentView from './ComponentView.vue'
-import InputField from './fields/InputField.vue'
-import CompFieldsContainer from './fields/CompFieldsContainer.vue'
+import { useCodeComponentsStore } from "../stores/useCodeComponentsStore";
+import ComponentView from "./ComponentView.vue";
+import InputField from "./fields/InputField.vue";
+import CompFieldsContainer from "./fields/CompFieldsContainer.vue";
 
 export default {
   components: {
@@ -11,22 +11,24 @@ export default {
     CompFieldsContainer,
   },
   data() {
-    const compsStore = useCodeComponentsStore()
+    const compsStore = useCodeComponentsStore();
     return {
       states: compsStore.states,
       addState: compsStore.addState,
       removeState: compsStore.removeState,
-    }
-  }
-}
+    };
+  },
+};
 </script>
 
 <template>
   <ComponentView header="Состояния" @add="addState">
     <states>
-      <h2 v-if="states.length === 0" style="text-align: center;">Нет состояний</h2>
+      <h2 v-if="states.length === 0" style="text-align: center">
+        Нет состояний
+      </h2>
       <CompFieldsContainer
-        v-for="state, index of states"
+        v-for="(state, index) of states"
         :key="index"
         @remove="removeState(index)"
       >
@@ -42,9 +44,9 @@ export default {
 </template>
 
 <style scoped>
-  states {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
+states {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
 </style>

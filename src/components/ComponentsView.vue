@@ -4,12 +4,12 @@ import SensorsView from "./SensorsView.vue";
 import StatesView from "./StatesView.vue";
 import ConfigsView from "./ConfigsView.vue";
 import InfoView from "./InfoView.vue";
-import TabItem from './common/TabItem.vue';
-import ExportSvg from 'vue-material-design-icons/Export.vue'
-import ImportSvg from 'vue-material-design-icons/Import.vue'
-import { useCodeComponentsStore } from '@/stores/useCodeComponentsStore';
-import { storeToRefs } from 'pinia';
-import PopUpDialog from './PopUpDialog.vue';
+import TabItem from "./common/TabItem.vue";
+import ExportSvg from "vue-material-design-icons/Export.vue";
+import ImportSvg from "vue-material-design-icons/Import.vue";
+import { useCodeComponentsStore } from "@/stores/useCodeComponentsStore";
+import { storeToRefs } from "pinia";
+import PopUpDialog from "./PopUpDialog.vue";
 
 export default {
   components: {
@@ -33,24 +33,24 @@ export default {
       mode: undefined,
       jsonConfig: undefined,
       validationError: undefined,
-    }
+    };
   },
   methods: {
     handleTabSelect(name) {
-      this.tab = name
+      this.tab = name;
     },
     importConfig() {
-      this.validationError = ''
+      this.validationError = "";
       try {
-        this.store.import(this.jsonConfig)
-        this.mode = undefined
+        this.store.import(this.jsonConfig);
+        this.mode = undefined;
       } catch (error) {
-        console.error(error)
-        this.validationError = `Ошибка парсинга: ${error.message}`
+        console.error(error);
+        this.validationError = `Ошибка парсинга: ${error.message}`;
       }
-    }
+    },
   },
-}
+};
 </script>
 
 <template>
@@ -106,7 +106,7 @@ export default {
       />
     </div>
     <div class="tab-view">
-      <InfoView v-if="tab === 'info'"/>
+      <InfoView v-if="tab === 'info'" />
       <ActionsView v-if="tab === 'actions'" />
       <SensorsView v-if="tab === 'sensors'" />
       <StatesView v-if="tab === 'states'" />
@@ -115,7 +115,7 @@ export default {
     <PopUpDialog v-if="mode" @close="mode = undefined">
       <textarea v-if="mode === 'export'" :value="store.export()"></textarea>
       <div v-else class="import-dialog">
-        <textarea 
+        <textarea
           v-model="jsonConfig"
           placeholder="Скопируйте сюда json конфигурации"
         ></textarea>
@@ -129,43 +129,43 @@ export default {
 </template>
 
 <style scoped>
-  .container {
-    width: 800px;
-    margin: 0 auto;
-  }
-  .tabs {
-    display: flex;
-    flex-direction: row;
-    gap: 5px;
-    padding: 5px;
-    width: fit-content;
-    margin: 0 auto;
-  }
-  .tab-view {
-    padding: 5px;
-    max-height: calc(100vh - 56px);
-    overflow-y: auto;
-    overflow-x: hidden;
-  }
-  .icon {
-    cursor: pointer;
-    height: 25px;
-    margin: auto;
-  }
-  .dialog textarea {
-    min-width: 800px;
-    min-height: 400px;
-    width: 50vw;
-    height: 60vh;
-    resize: none;
-  }
-  .import-dialog {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-  .validation-error {
-    text-align: center;
-    color: var(--color-danger);
-  }
+.container {
+  width: 800px;
+  margin: 0 auto;
+}
+.tabs {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  padding: 5px;
+  width: fit-content;
+  margin: 0 auto;
+}
+.tab-view {
+  padding: 5px;
+  max-height: calc(100vh - 56px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.icon {
+  cursor: pointer;
+  height: 25px;
+  margin: auto;
+}
+.dialog textarea {
+  min-width: 800px;
+  min-height: 400px;
+  width: 50vw;
+  height: 60vh;
+  resize: none;
+}
+.import-dialog {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.validation-error {
+  text-align: center;
+  color: var(--color-danger);
+}
 </style>

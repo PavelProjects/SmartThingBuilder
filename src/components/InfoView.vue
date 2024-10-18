@@ -1,8 +1,8 @@
 <script>
-import { useCodeComponentsStore } from '../stores/useCodeComponentsStore'
-import ComponentView from './ComponentView.vue'
-import InputField from './fields/InputField.vue'
-import CheckBoxField from './fields/CheckBoxField.vue'
+import { useCodeComponentsStore } from "../stores/useCodeComponentsStore";
+import ComponentView from "./ComponentView.vue";
+import InputField from "./fields/InputField.vue";
+import CheckBoxField from "./fields/CheckBoxField.vue";
 
 export default {
   components: {
@@ -11,24 +11,24 @@ export default {
     CheckBoxField,
   },
   data() {
-    const compsStore = useCodeComponentsStore()
+    const compsStore = useCodeComponentsStore();
     return {
       store: compsStore,
-    }
-  }
-}
+    };
+  },
+};
 </script>
 
 <template>
   <ComponentView header="Базовая информация" :withAddButton="false">
     <div class="info-container">
-      <InputField 
+      <InputField
         label="Тип устройства"
         :modelValue="store.type"
         @update:modelValue="(v) => store.setType(v)"
         :required="true"
       />
-      <InputField 
+      <InputField
         label="Имя устройства"
         :modelValue="store.name"
         @update:modelValue="(v) => store.setName(v)"
@@ -43,9 +43,9 @@ export default {
 </template>
 
 <style scoped>
-  .info-container {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
+.info-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
 </style>

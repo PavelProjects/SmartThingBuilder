@@ -8,10 +8,10 @@ export default {
   emits: ["update:modelValue"],
   computed: {
     notValid() {
-      return this.required && !this.modelValue
-    }
-  }
-}
+      return this.required && !this.modelValue;
+    },
+  },
+};
 </script>
 
 <template>
@@ -28,9 +28,9 @@ export default {
 </template>
 
 <style scoped>
-  input {
-    margin: auto auto;
-    height: 20px;
-    width: 20px;
-  }
+input {
+  margin: auto auto;
+  height: 20px;
+  width: 20px;
+}
 </style>

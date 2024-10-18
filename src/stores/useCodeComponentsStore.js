@@ -3,16 +3,16 @@ import { defineStore } from "pinia";
 
 const canAdd = (list) => {
   if (list.length === 0) {
-    return true
+    return true;
   }
-  return !list.find(({ name }) => !name)
-}
+  return !list.find(({ name }) => !name);
+};
 
 const addIfPossible = (list, item) => {
   if (canAdd(list)) {
-    list.unshift(item)
+    list.unshift(item);
   }
-}
+};
 
 const initState = {
   type: "test_device",
@@ -22,99 +22,115 @@ const initState = {
   actions: [],
   configs: [],
   ota: false,
-}
+};
 
 const useCodeComponentsStore = defineStore({
-  id: 'code_comp',
+  id: "code_comp",
   state: () => _.cloneDeep(initState),
   getters: {
     haveChanges: ({ type, name, states, sensors, actions, configs, ota }) => {
       return !_.isEqual(
         { type, name, states, sensors, actions, configs, ota },
-        initState
+        initState,
       );
-    }
+    },
   },
   actions: {
     export() {
-      return JSON.stringify({
-        type: this.type,
-        name: this.name,
-        ota: this.ota,
-        states: this.states.filter(({ name }) => !!name),
-        actions: this.actions.filter(({ name }) => !!name),
-        sensors: this.sensors.filter(({ name, type, pin }) => {
-          if (type === 'custom') {
-            return !!name
-          }
-          return !!name && (pin === 0 || !!pin)
-        }),
-      }, null, 2)
+      return JSON.stringify(
+        {
+          type: this.type,
+          name: this.name,
+          ota: this.ota,
+          states: this.states.filter(({ name }) => !!name),
+          actions: this.actions.filter(({ name }) => !!name),
+          sensors: this.sensors.filter(({ name, type, pin }) => {
+            if (type === "custom") {
+              return !!name;
+            }
+            return !!name && (pin === 0 || !!pin);
+          }),
+        },
+        null,
+        2,
+      );
     },
     import(json) {
-      const values = JSON.parse(json)
+      const values = JSON.parse(json);
       this.$state = _.cloneDeep({
         ...initState,
-        ..._.pick(values, ['type', 'name', 'ota', 'states', 'actions', 'sensors']),
-      })
-      console.log(this.$state)
+        ..._.pick(values, [
+          "type",
+          "name",
+          "ota",
+          "states",
+          "actions",
+          "sensors",
+        ]),
+      });
+      console.log(this.$state);
     },
     setName(value) {
-      this.name = value
+      this.name = value;
     },
     setType(value) {
-      this.type = value
+      this.type = value;
     },
     addAction() {
-      addIfPossible(this.actions, { 
+      addIfPossible(this.actions, {
         name: undefined,
         caption: undefined,
-      })
+      });
     },
     addActionLogic(index) {
       if (!this.actions[index]) {
-        return
+        return;
       }
       this.actions[index].logic = {
         type: "digital",
         pin: 0,
-        value: 'HIGH',
-      }
+        value: "HIGH",
+      };
     },
     removeActionLogic(index) {
       if (!this.actions[index]) {
-        return
+        return;
       }
-      delete this.actions[index].logic
+      delete this.actions[index].logic;
     },
     removeAction(index) {
-      this.actions.splice(index, 1)
+      this.actions.splice(index, 1);
     },
     addSensor() {
-      addIfPossible(this.sensors, { name: undefined, pin: undefined, type: "digital" })
+      addIfPossible(this.sensors, {
+        name: undefined,
+        pin: undefined,
+        type: "digital",
+      });
     },
     removeSensor(index) {
-      this.sensors.splice(index, 1)
+      this.sensors.splice(index, 1);
     },
     addState() {
-      addIfPossible(this.states, { name: undefined })
+      addIfPossible(this.states, { name: undefined });
     },
     removeState(index) {
-      this.states.splice(index, 1)
+      this.states.splice(index, 1);
     },
     addConfig() {
-      addIfPossible(
-        this.configs,
-        { name: undefined, caption: undefined, type: "string" }
-      )
+      addIfPossible(this.configs, {
+        name: undefined,
+        caption: undefined,
+        type: "string",
+      });
     },
     removeConfig(index) {
-      this.configs.splice(index, 1)
+      this.configs.splice(index, 1);
     },
     setOta(value) {
       this.ota = value ?? false;
-    }
-  }
-})
+    },
+  },
+});
 
-export { useCodeComponentsStore }
+export { useCodeComponentsStore };

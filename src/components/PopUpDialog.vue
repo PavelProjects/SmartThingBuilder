@@ -1,12 +1,12 @@
 <script>
 export default {
-  name: 'PopUpDialog',
+  name: "PopUpDialog",
   methods: {
     clickOutside() {
-      this.$emit('close')
-    }
-  }
-}
+      this.$emit("close");
+    },
+  },
+};
 </script>
 
 <template>
