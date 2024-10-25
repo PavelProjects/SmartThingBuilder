@@ -44,7 +44,7 @@ const customSensorsTemplate = `  SmartThing.addSensor("$name", [](){
     return 0; ${urLogicTemplate}
   });`;
 
-const actionTemplate = `  SmartThing.addActionHandler("$name", "$caption", []() {
+const actionTemplate = `  ActionsManager.add("$name", "$caption", []() {
     $logic
     return ActionResult(true);
   });`;
