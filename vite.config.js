@@ -5,8 +5,9 @@ import vue from "@vitejs/plugin-vue";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd(), '')
-  
+  // eslint-disable-next-line no-undef
+  const env = loadEnv(mode, process.cwd(), "");
+
   return {
     plugins: [vue()],
     resolve: {
@@ -14,6 +15,6 @@ export default defineConfig(({ mode }) => {
         "@": fileURLToPath(new URL("./src", import.meta.url)),
       },
     },
-    base: env.BASE_PATH ?? ''
-  }
+    base: env.BASE_PATH ?? "",
+  };
 });
