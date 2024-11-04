@@ -15,14 +15,16 @@ export default {
   },
   data() {
     const compsStore = useCodeComponentsStore();
-    const types = Object.entries(configEntryType)
-      .map(([ caption, value ]) => ({ caption, value }))
+    const types = Object.entries(configEntryType).map(([caption, value]) => ({
+      caption,
+      value,
+    }));
 
     return {
       configs: compsStore.configs,
       addConfig: compsStore.addConfig,
       removeConfig: compsStore.removeConfig,
-      types
+      types,
     };
   },
 };

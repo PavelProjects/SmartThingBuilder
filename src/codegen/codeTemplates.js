@@ -53,8 +53,8 @@ const configEntryTemplate = `  SettingsRepository.addConfigEntry("$name", "$capt
 const configEntryType = {
   string: "CONFIG_STRING",
   integer: "CONFIG_INTEGER",
-  boolen: "CONFIG_BOOLEAN"
-}
+  boolen: "CONFIG_BOOLEAN",
+};
 
 const pinDefineTemplate = `#define $pin_name $pin`;
 
