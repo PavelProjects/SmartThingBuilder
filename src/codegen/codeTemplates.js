@@ -34,13 +34,13 @@ void addConfigEntries() {$configs}
 
 const urLogicTemplate = "//TODO your logic here";
 
-const stateTemplate = `  SmartThing.addDeviceState("$name", []() {
+const stateTemplate = `  ObservablesManager.addDeviceState("$name", []() {
     return ""; ${urLogicTemplate}
   });`;
 
-const digitalSensorTemplate = `  SmartThing.addDigitalSensor("$name", $pin_name);`;
-const analogSensorTemplate = `  SmartThing.addAnalogSensor("$name", $pin_name);`;
-const customSensorsTemplate = `  SmartThing.addSensor("$name", [](){
+const digitalSensorTemplate = `  ObservablesManager.addDigitalSensor("$name", $pin_name);`;
+const analogSensorTemplate = `  ObservablesManager.addAnalogSensor("$name", $pin_name);`;
+const customSensorsTemplate = `  ObservablesManager.addSensor("$name", [](){
     return 0; ${urLogicTemplate}
   });`;
 
@@ -49,7 +49,7 @@ const actionTemplate = `  ActionsManager.add("$name", "$caption", []() {
     return ActionResult(true);
   });`;
 
-const configEntryTemplate = `  SmartThing.addConfigEntry("$name", "$caption", "$type");`;
+const configEntryTemplate = `  SettingsRepository.addConfigEntry("$name", "$caption", "$type");`;
 
 const pinDefineTemplate = `#define $pin_name $pin`;
 
