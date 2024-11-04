@@ -2,6 +2,7 @@ import {
   actionTemplate,
   analogSensorTemplate,
   configEntryTemplate,
+  configEntryType,
   customSensorsTemplate,
   digitalSensorTemplate,
   mainTemplate,
@@ -82,8 +83,8 @@ const configsBuilder = ({ configs }) => {
     .map(({ name, caption, type }) =>
       configEntryTemplate
         .replace("$name", toSnakeCase(name))
-        .replace("$caption", caption || name)
-        .replace("$type", type || "string"),
+        .replace("$caption", caption ?? name)
+        .replace("$type", type ?? configEntryType.string),
     );
 };
 
