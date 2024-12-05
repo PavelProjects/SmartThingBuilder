@@ -40,7 +40,7 @@ const stateTemplate = `  ObservablesManager.addDeviceState("$name", []() {
 
 const digitalSensorTemplate = `  ObservablesManager.addDigitalSensor("$name", $pin_name);`;
 const analogSensorTemplate = `  ObservablesManager.addAnalogSensor("$name", $pin_name);`;
-const customSensorsTemplate = `  ObservablesManager.addSensor("$name", [](){
+const customSensorsTemplate = `  ObservablesManager.addSensorCustom("$name", [](){
     return 0; ${urLogicTemplate}
   });`;
 
