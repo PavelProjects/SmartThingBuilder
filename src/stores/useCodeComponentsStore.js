@@ -57,13 +57,7 @@ const useCodeComponentsStore = defineStore({
       const values = JSON.parse(json);
       this.$state = _.cloneDeep({
         ...initState,
-        ..._.pick(values, [
-          "type",
-          "name",
-          "ota",
-          "actions",
-          "sensors",
-        ]),
+        ..._.pick(values, ["type", "name", "ota", "actions", "sensors"]),
       });
     },
     setName(value) {
