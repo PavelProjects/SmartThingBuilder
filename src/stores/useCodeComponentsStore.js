@@ -17,7 +17,6 @@ const addIfPossible = (list, item) => {
 const initState = {
   type: "test_device",
   name: "",
-  states: [],
   sensors: [],
   actions: [],
   configs: [],
@@ -28,9 +27,9 @@ const useCodeComponentsStore = defineStore({
   id: "code_comp",
   state: () => _.cloneDeep(initState),
   getters: {
-    haveChanges: ({ type, name, states, sensors, actions, configs, ota }) => {
+    haveChanges: ({ type, name, sensors, actions, configs, ota }) => {
       return !_.isEqual(
-        { type, name, states, sensors, actions, configs, ota },
+        { type, name, sensors, actions, configs, ota },
         initState,
       );
     },
@@ -42,7 +41,6 @@ const useCodeComponentsStore = defineStore({
           type: this.type,
           name: this.name,
           ota: this.ota,
-          states: this.states.filter(({ name }) => !!name),
           actions: this.actions.filter(({ name }) => !!name),
           sensors: this.sensors.filter(({ name, type, pin }) => {
             if (type === "custom") {
@@ -63,12 +61,10 @@ const useCodeComponentsStore = defineStore({
           "type",
           "name",
           "ota",
-          "states",
           "actions",
           "sensors",
         ]),
       });
-      console.log(this.$state);
     },
     setName(value) {
       this.name = value;
@@ -110,12 +106,6 @@ const useCodeComponentsStore = defineStore({
     },
     removeSensor(index) {
       this.sensors.splice(index, 1);
-    },
-    addState() {
-      addIfPossible(this.states, { name: undefined });
-    },
-    removeState(index) {
-      this.states.splice(index, 1);
     },
     addConfig() {
       addIfPossible(this.configs, {

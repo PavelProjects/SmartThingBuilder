@@ -2,13 +2,11 @@ const mainTemplate = `//Auto-generated code
 #include <Arduino.h>
 #include <SmartThing.h>
 $ota_include$pins
-void addStates();
 void addSensors();
 void addActions();
 void addConfigEntries();
 
 void setup() {
-  addStates();
   addSensors();
   addActions();
   addConfigEntries();
@@ -28,19 +26,14 @@ void loop() {
 
 void addActions() {$actions}
 void addSensors() {$sensors}
-void addStates() {$states}
 void addConfigEntries() {$configs}
 `;
 
 const urLogicTemplate = "//TODO your logic here";
 
-const stateTemplate = `  ObservablesManager.addDeviceState("$name", []() {
-    return ""; ${urLogicTemplate}
-  });`;
-
-const digitalSensorTemplate = `  ObservablesManager.addDigitalSensor("$name", $pin_name);`;
-const analogSensorTemplate = `  ObservablesManager.addAnalogSensor("$name", $pin_name);`;
-const customSensorsTemplate = `  ObservablesManager.addSensorCustom("$name", [](){
+const digitalSensorTemplate = `  SensorsManager.addDigitalSensor("$name", $pin_name);`;
+const analogSensorTemplate = `  SensorsManager.addAnalogSensor("$name", $pin_name);`;
+const customSensorsTemplate = `  SensorsManager.addSensorCustom("$name", [](){
     return 0; ${urLogicTemplate}
   });`;
 
@@ -74,7 +67,6 @@ export {
   analogSensorTemplate,
   digitalSensorTemplate,
   customSensorsTemplate,
-  stateTemplate,
   configEntryTemplate,
   configEntryType,
   pinDefineTemplate,

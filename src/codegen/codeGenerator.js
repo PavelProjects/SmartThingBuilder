@@ -9,7 +9,6 @@ import {
   otaBeginTemplate,
   otaHandleTemplate,
   pinDefineTemplate,
-  stateTemplate,
   urLogicTemplate,
 } from "./codeTemplates";
 
@@ -71,12 +70,6 @@ const sensorsBuilder = ({ sensors, pins }) => {
   return blocks;
 };
 
-const statesBuilder = ({ states }) => {
-  return states
-    .filter(({ name }) => !!name)
-    .map(({ name }) => stateTemplate.replace("$name", toSnakeCase(name)));
-};
-
 const configsBuilder = ({ configs }) => {
   return configs
     .filter(({ name }) => !!name)
@@ -121,7 +114,6 @@ const initParamsBuilder = ({ type, name }) => {
 const builders = {
   actions: actionsBuilder,
   sensors: sensorsBuilder,
-  states: statesBuilder,
   configs: configsBuilder,
   pins: pinsBuilder,
   init_params: initParamsBuilder,

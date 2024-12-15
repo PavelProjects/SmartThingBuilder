@@ -1,7 +1,6 @@
 <script>
 import ActionsView from "./ActionsView.vue";
 import SensorsView from "./SensorsView.vue";
-import StatesView from "./StatesView.vue";
 import ConfigsView from "./ConfigsView.vue";
 import InfoView from "./InfoView.vue";
 import TabItem from "./common/TabItem.vue";
@@ -15,7 +14,6 @@ export default {
   components: {
     ActionsView,
     SensorsView,
-    StatesView,
     ConfigsView,
     InfoView,
     TabItem,
@@ -77,13 +75,6 @@ export default {
         @select="handleTabSelect"
       />
       <TabItem
-        name="states"
-        caption="Состояния"
-        :count="store.states.length"
-        :currentTab="tab"
-        @select="handleTabSelect"
-      />
-      <TabItem
         name="configs"
         caption="Конфигурации"
         :count="store.configs.length"
@@ -109,7 +100,6 @@ export default {
       <InfoView v-if="tab === 'info'" />
       <ActionsView v-if="tab === 'actions'" />
       <SensorsView v-if="tab === 'sensors'" />
-      <StatesView v-if="tab === 'states'" />
       <ConfigsView v-if="tab === 'configs'" />
     </div>
     <PopUpDialog v-if="mode" @close="mode = undefined">
@@ -117,7 +107,7 @@ export default {
       <div v-else class="import-dialog">
         <textarea
           v-model="jsonConfig"
-          placeholder="Скопируйте сюда json конфигурации"
+          placeholder="Скопируйте сюда json конфигурацию"
         ></textarea>
         <h2 class="validation-error">{{ validationError }}</h2>
         <button v-if="jsonConfig" class="btn" @click.stop="importConfig">
