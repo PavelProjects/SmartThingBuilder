@@ -95,7 +95,6 @@ const useCodeComponentsStore = defineStore({
       addIfPossible(this.sensors, {
         name: undefined,
         pin: undefined,
-        type: "digital",
       });
     },
     removeSensor(index) {
@@ -104,8 +103,6 @@ const useCodeComponentsStore = defineStore({
     addConfig() {
       addIfPossible(this.configs, {
         name: undefined,
-        caption: undefined,
-        type: "string",
       });
     },
     removeConfig(index) {

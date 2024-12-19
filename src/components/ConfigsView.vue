@@ -4,7 +4,6 @@ import ComponentView from "./ComponentView.vue";
 import InputField from "./fields/InputField.vue";
 import SelectField from "./fields/SelectField.vue";
 import CompFieldsContainer from "./fields/CompFieldsContainer.vue";
-import { configEntryType } from "@/codegen/codeTemplates";
 
 export default {
   components: {
@@ -15,16 +14,11 @@ export default {
   },
   data() {
     const compsStore = useCodeComponentsStore();
-    const types = Object.entries(configEntryType).map(([caption, value]) => ({
-      caption,
-      value,
-    }));
 
     return {
       configs: compsStore.configs,
       addConfig: compsStore.addConfig,
       removeConfig: compsStore.removeConfig,
-      types,
     };
   },
 };
@@ -47,12 +41,6 @@ export default {
           v-model="config.name"
           :required="true"
         />
-        <InputField
-          label="Название"
-          placeholder="Введите название"
-          v-model="config.caption"
-        />
-        <SelectField label="Тип" v-model="config.type" :values="types" />
       </CompFieldsContainer>
     </configs>
   </ComponentView>

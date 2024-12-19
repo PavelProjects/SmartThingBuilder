@@ -42,12 +42,7 @@ const actionTemplate = `  ActionsManager.add("$name", "$caption", []() {
     return ActionResult(true);
   });`;
 
-const configEntryTemplate = `  SettingsRepository.addConfigEntry("$name", "$caption", $type);`;
-const configEntryType = {
-  string: "CONFIG_STRING",
-  integer: "CONFIG_INTEGER",
-  boolen: "CONFIG_BOOLEAN",
-};
+const configEntryTemplate = `  SettingsRepository.addConfigEntry("$name");`;
 
 const pinDefineTemplate = `#define $pin_name $pin`;
 
@@ -68,7 +63,6 @@ export {
   digitalSensorTemplate,
   customSensorsTemplate,
   configEntryTemplate,
-  configEntryType,
   pinDefineTemplate,
   otaBeginTemplate,
   otaHandleTemplate,
