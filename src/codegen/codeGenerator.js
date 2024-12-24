@@ -72,9 +72,7 @@ const sensorsBuilder = ({ sensors, pins }) => {
 const configsBuilder = ({ configs }) => {
   return configs
     .filter(({ name }) => !!name)
-    .map(({ name }) =>
-      configEntryTemplate.replace("$name", toSnakeCase(name))
-    );
+    .map(({ name }) => configEntryTemplate.replace("$name", toSnakeCase(name)));
 };
 
 const pinsBuilder = ({ pins }) => {

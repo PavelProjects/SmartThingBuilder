@@ -2,14 +2,12 @@
 import { useCodeComponentsStore } from "../stores/useCodeComponentsStore";
 import ComponentView from "./ComponentView.vue";
 import InputField from "./fields/InputField.vue";
-import SelectField from "./fields/SelectField.vue";
 import CompFieldsContainer from "./fields/CompFieldsContainer.vue";
 
 export default {
   components: {
     ComponentView,
     InputField,
-    SelectField,
     CompFieldsContainer,
   },
   data() {
