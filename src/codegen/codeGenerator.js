@@ -5,8 +5,6 @@ import {
   customSensorsTemplate,
   digitalSensorTemplate,
   mainTemplate,
-  otaBeginTemplate,
-  otaHandleTemplate,
   pinDefineTemplate,
   urLogicTemplate,
 } from "./codeTemplates";
@@ -81,22 +79,6 @@ const pinsBuilder = ({ pins }) => {
   );
 };
 
-const otaBuilder = ({ ota }) => {
-  if (ota) {
-    return {
-      include: "#include <ArduinoOTA.h>\n",
-      begin: otaBeginTemplate,
-      handle: otaHandleTemplate,
-    };
-  } else {
-    return {
-      include: "",
-      begin: "",
-      handle: "",
-    };
-  }
-};
-
 const initParamsBuilder = ({ type, name }) => {
   let v = `"${toSnakeCase(type)}"`;
   if (!name) {
@@ -111,7 +93,6 @@ const builders = {
   configs: configsBuilder,
   pins: pinsBuilder,
   init_params: initParamsBuilder,
-  ota: otaBuilder,
 };
 
 const generateCode = (store) => {

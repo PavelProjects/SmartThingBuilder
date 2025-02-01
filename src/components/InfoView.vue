@@ -33,11 +33,6 @@ export default {
         :modelValue="store.name"
         @update:modelValue="(v) => store.setName(v)"
       />
-      <CheckBoxField
-        label="ArduinoOTA"
-        :modelValue="store.ota"
-        @update:modelValue="(v) => store.setOta(v)"
-      />
     </div>
   </ComponentView>
 </template>

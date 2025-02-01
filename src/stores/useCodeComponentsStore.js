@@ -20,16 +20,15 @@ const initState = {
   sensors: [],
   actions: [],
   configs: [],
-  ota: false,
 };
 
 const useCodeComponentsStore = defineStore({
   id: "code_comp",
   state: () => _.cloneDeep(initState),
   getters: {
-    haveChanges: ({ type, name, sensors, actions, configs, ota }) => {
+    haveChanges: ({ type, name, sensors, actions, configs }) => {
       return !_.isEqual(
-        { type, name, sensors, actions, configs, ota },
+        { type, name, sensors, actions, configs },
         initState,
       );
     },
@@ -40,7 +39,6 @@ const useCodeComponentsStore = defineStore({
         {
           type: this.type,
           name: this.name,
-          ota: this.ota,
           actions: this.actions.filter(({ name }) => !!name),
           sensors: this.sensors.filter(({ name, type, pin }) => {
             if (type === "custom") {
@@ -57,7 +55,7 @@ const useCodeComponentsStore = defineStore({
       const values = JSON.parse(json);
       this.$state = _.cloneDeep({
         ...initState,
-        ..._.pick(values, ["type", "name", "ota", "actions", "sensors"]),
+        ..._.pick(values, ["type", "name", "actions", "sensors"]),
       });
     },
     setName(value) {
@@ -107,9 +105,6 @@ const useCodeComponentsStore = defineStore({
     },
     removeConfig(index) {
       this.configs.splice(index, 1);
-    },
-    setOta(value) {
-      this.ota = value ?? false;
     },
   },
 });
