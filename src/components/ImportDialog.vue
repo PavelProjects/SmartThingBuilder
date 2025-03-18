@@ -60,6 +60,6 @@ export default {
   padding: var(--default-padding);
 }
 .import-area {
-  height: 50vh;
+  height: 30vh;
 }
 </style>

@@ -34,6 +34,6 @@ export default {
   padding: var(--default-padding);
 }
 .export-area {
-  height: 70vh;
+  height: 30vh;
 }
 </style>
