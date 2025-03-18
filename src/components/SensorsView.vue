@@ -27,9 +27,6 @@ export default {
 <template>
   <ComponentView :header="'Сенсоры'" @add="addSensor">
     <sensors>
-      <h2 v-if="sensors.length === 0" style="text-align: center">
-        Нет сенсоров
-      </h2>
       <CompFieldsContainer
         v-for="(sensor, index) of sensors"
         :key="index"

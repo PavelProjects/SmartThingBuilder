@@ -26,21 +26,24 @@ export default {
 </script>
 
 <template>
-  <div class="main-container">
+  <div class="editor">
     <ComponentsView />
     <textarea :value="codeTemplate" disabled></textarea>
   </div>
 </template>
 
 <style scoped>
-.main-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+.editor {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
   padding: 15px;
+  height: 100vh;
 }
 textarea {
-  height: 95vh;
-  width: 900px;
+  flex: 4 0 auto;
+  /* height: 95vh; */
+  height: 100%;
   margin: 0 auto;
   resize: none;
 }

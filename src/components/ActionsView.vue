@@ -28,9 +28,6 @@ export default {
 <template>
   <ComponentView :header="'Действия'" @add="addAction">
     <actions>
-      <h2 v-if="actions.length === 0" style="text-align: center">
-        Нет действий
-      </h2>
       <CompFieldsContainer
         v-for="(action, index) of actions"
         :key="index"

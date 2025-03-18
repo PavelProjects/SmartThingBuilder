@@ -2,13 +2,11 @@
 import { useCodeComponentsStore } from "../stores/useCodeComponentsStore";
 import ComponentView from "./ComponentView.vue";
 import InputField from "./fields/InputField.vue";
-import CheckBoxField from "./fields/CheckBoxField.vue";
 
 export default {
   components: {
     ComponentView,
     InputField,
-    CheckBoxField,
   },
   data() {
     const compsStore = useCodeComponentsStore();

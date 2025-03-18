@@ -1,5 +1,10 @@
 <script>
+import BaseButton from "./base/BaseButton.vue";
+
 export default {
+  components: {
+    BaseButton,
+  },
   props: {
     header: String,
     withAddButton: {
@@ -19,9 +24,9 @@ export default {
   <div class="component-container bordered">
     <div class="title">
       <header>{{ header }}</header>
-      <button v-if="withAddButton" @click.stop="handleButton" class="btn">
-        <h2>Добавить</h2>
-      </button>
+      <BaseButton v-if="withAddButton" @click="handleButton">
+        Добавить
+      </BaseButton>
     </div>
     <div class="content">
       <slot></slot>
@@ -33,9 +38,6 @@ export default {
 .component-container {
   display: flex;
   flex-direction: column;
-  padding: 2px;
-}
-.content {
   padding: 2px;
 }
 .title {

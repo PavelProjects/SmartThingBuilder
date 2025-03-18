@@ -15,7 +15,7 @@ export default {
       <slot></slot>
     </div>
     <div class="remove-button" @click="$emit('remove')">
-      <Delete fillColor="var(--color-danger)" />
+      <Delete fillColor="var(--color-danger)" :size="20" />
     </div>
   </div>
 </template>

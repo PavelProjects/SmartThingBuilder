@@ -27,10 +27,7 @@ const useCodeComponentsStore = defineStore({
   state: () => _.cloneDeep(initState),
   getters: {
     haveChanges: ({ type, name, sensors, actions, configs }) => {
-      return !_.isEqual(
-        { type, name, sensors, actions, configs },
-        initState,
-      );
+      return !_.isEqual({ type, name, sensors, actions, configs }, initState);
     },
   },
   actions: {

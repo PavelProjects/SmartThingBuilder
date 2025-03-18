@@ -25,9 +25,6 @@ export default {
 <template>
   <ComponentView header="Конфигурации" @add="addConfig">
     <configs>
-      <h2 v-if="configs.length === 0" style="text-align: center">
-        Нет конфигураций
-      </h2>
       <CompFieldsContainer
         v-for="(config, index) of configs"
         :key="index"
